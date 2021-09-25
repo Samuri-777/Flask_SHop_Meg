@@ -8,9 +8,9 @@ def index():
 
 @app.route("/base")
 def base():
-    return render_template("base.html")
+     return render_template('base.html')
 
 
-@app.route('/blog')
+@app.route("/blog")
 def blog():
-     return render_template('blog.html')
+    return render_template("blog.html")
