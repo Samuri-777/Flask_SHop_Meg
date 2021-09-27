@@ -1,9 +1,11 @@
 from gop_shop import app
 from flask import render_template
+from gop_shop.models import Product
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    products = Product.query.all()
+    return render_template('index.html', products=products)
 
 
 @app.route("/base")
