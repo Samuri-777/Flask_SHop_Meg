@@ -5,6 +5,7 @@ from flask import render_template, request, redirect, url_for
 from gop_shop.models import Product, db, User
 from PIL import Image
 from flask_login import login_user, logout_user, current_user
+from gop_shop.forms import RegistrationForm
 
 @app.route("/")
 def index():
@@ -31,11 +32,21 @@ def add_product():
             file_name = image.filename
             image = Image.open(image)
             image.save('gop_shop/static/img/product' + file_name)
-        p = Product(title=f.get('title'), price=f.get('price'), category=f.get('category'), availibility=f.get('availibility'),
-        description=f.get('description'), image=file_name)
+        p = Product(title=f.get('title'), price=f.get('price'), description=f.get('description'), availibility=f.get('availibility'),
+        category=f.get('category'), image=file_name)
         db.session.add(p)
         db.session.commit() 
     return render_template('add_product.html')
+
+
+@app.route('/registration', methods=['GET', 'POST'])
+def registration():
+    if current_user.is_authenticated:
+       return redirect(url_for('index'))
+
+    form = RegistrationForm()
+    return render_template('test.html', form=form)
+
 
 @app.route('/login', methods=(['GET', 'POST']))
 def login():
