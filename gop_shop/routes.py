@@ -58,4 +58,5 @@ def logout():
 @app.route('/products/<int:product_id>')
 def product_detail(product_id):
     product = Product.query.get(product_id)
+    print(product)
     return render_template('product_detail.html', product=product)

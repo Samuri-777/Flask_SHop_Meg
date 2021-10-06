@@ -22,34 +22,6 @@
     </section>
     <!--================ Hero banner start =================-->
 
-        <!--================ Hero Carousel start =================-->
-        <section class="section-margin mt-0">
-          <div class="owl-carousel owl-theme hero-carousel">
-            <div class="hero-carousel__slide">
-              <img src="{{ url_for('static', filename='img/home/hero-slide1.png') }}" alt="" class="img-fluid">
-              <a href="#" class="hero-carousel__slideOverlay">
-                <h3>Wireless Headphone</h3>
-                <p>Accessories Item</p>
-              </a>
-            </div>
-            <div class="hero-carousel__slide">
-              <img src="{{ url_for('static', filename='img/home/hero-slide2.png') }}" alt="" class="img-fluid">
-              <a href="#" class="hero-carousel__slideOverlay">
-                <h3>Wireless Headphone</h3>
-                <p>Accessories Item</p>
-              </a>
-            </div>
-            <div class="hero-carousel__slide">
-              <img src="{{ url_for('static', filename='img/home/hero-slide3.png') }}" alt="" class="img-fluid">
-              <a href="#" class="hero-carousel__slideOverlay">
-                <h3>Wireless Headphone</h3>
-                <p>Accessories Item</p>
-              </a>
-            </div>
-          </div>
-        </section>
-        <!--================ Hero Carousel end =================-->
-
     <!-- ================ trending product section start ================= -->  
     <section class="section-margin calc-60px">
       <div class="container">
@@ -71,7 +43,7 @@
               </div>
               <div class="card-body">
                 <p>{{ product.category }}</p>
-                <h4 class="card-product__title"><a href="single-product.html">{{  product.title }}</a></h4>
+                <h4 class="card-product__title"><a href="product_detail.html">{{  product.title }}</a></h4>
                 <p class="card-product__price">{{ product.price }}</p>
               </div>
             </div>
@@ -119,7 +91,7 @@
             </div>
             <div class="card-body">
               <p>{{ product.categry }}</p>
-              <h4 class="card-product__title"><a href="single-product.html">{{ product.title }}</a></h4>
+              <h4 class="card-product__title"><a href="product_detail.html">{{ product.title }}</a></h4>
               <p class="card-product__price">${{ product.price }}</p>
             </div>
           </div>
@@ -129,14 +101,14 @@
     </section>
 <!-- ================ Best Selling item  carousel end ================= --> 
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{{ url_for('static', filename='vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/skrollr.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/mail-script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
 
