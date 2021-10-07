@@ -1,3 +1,4 @@
+import re
 from flask_migrate import current
 from werkzeug.utils import secure_filename
 from gop_shop import app
@@ -43,9 +44,14 @@ def add_product():
 def registration():
     if current_user.is_authenticated:
        return redirect(url_for('index'))
-
     form = RegistrationForm()
-    return render_template('test.html', form=form)
+    if form.validate_on_submit():
+        user = User(email=form.email.data, password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Регистрация прошла успешно!', 'success')
+        return redirect(url_for('login'))
+    return render_template('registration.html', form=form)
 
 
 @app.route('/login', methods=(['GET', 'POST']))
