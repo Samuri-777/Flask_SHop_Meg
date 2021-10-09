@@ -1,8 +1,7 @@
-import re
 from flask_migrate import current
 from werkzeug.utils import secure_filename
 from gop_shop import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for,flash
 from gop_shop.models import Product, db, User
 from PIL import Image
 from flask_login import login_user, logout_user, current_user
