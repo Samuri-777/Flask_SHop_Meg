@@ -23,4 +23,4 @@ class PostForm(FlaskForm):
     title = StringField('Заголовок', validators=[DataRequired()])
     content = TextAreaField('Контакт', validators=[DataRequired()])
     image = FileField('Картинка поста', validators=[FileAllowed(['jpg', 'png'])])
-    submit = SubmitField('Сщздать пост')
+    submit = SubmitField('Создать пост')

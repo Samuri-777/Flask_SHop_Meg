@@ -12,7 +12,7 @@ app.config.from_object(Config)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
-login_manager.login_message = 'Для доступа к данной сьранице нужно войти в свой аккаунт!'
+login_manager.login_message = 'Для доступа к данной странице нужно войти в свой аккаунт!'
 login_manager.login_message_category = 'info'
 
 from gop_shop import routes, models

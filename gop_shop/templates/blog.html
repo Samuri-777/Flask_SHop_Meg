@@ -38,11 +38,12 @@
                                         <h2>{{ post.title }}</h2>
                                     </a>
                                     <p>{{ post.content[:300] }}...</p>
-                                    <a class="button button-blog" href="{{ url_for('post_detail', post_id=post.id) }}">View More</a>
+                                    <a class="button button-blog" href="{{ url_for(post_detail, post_id=post.id) }}">View More</a>
                                 </div>
                             </div>
                         </div>
                     </article>
+                    {% endfor %}
                     <article class="row blog_item">
                         <div class="col-md-3">
                             <div class="blog_info text-right">
@@ -73,12 +74,11 @@
                                         <h2>{{ post.title }}</h2>
                                     </a>
                                     <p>{{ post.content[:300] }}...</p>
-                                    <a href="single-blog.html" class="{{ url_for('post_detail', post_id=post.id) }}">View More</a>
+                                    <a href="single-blog.html" class="{{ url_for(post_detail, post_id=post.id) }}">View More</a>
                                 </div>
                             </div>
                         </div>
                     </article>
-                    {% endfor %}
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
                             <li class="page-item">
