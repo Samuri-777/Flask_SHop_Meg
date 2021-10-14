@@ -1,26 +1,14 @@
-from flask_migrate import current
-from werkzeug.utils import secure_filename
 from gop_shop import app
 from flask import render_template, request, redirect, url_for,flash
-from gop_shop.models import Product, db, User
+from gop_shop.models import Product, db, User,Post
 from PIL import Image
 from flask_login import login_user, logout_user, current_user
-from gop_shop.forms import RegistrationForm
+from gop_shop.forms import RegistrationForm, PostForm
 
 @app.route("/")
 def index():
     products = Product.query.all()
     return render_template('index.html', products=products)
-
-
-@app.route("/base")
-def base():
-     return render_template('base.html')
-
-
-@app.route("/blog")
-def blog():
-    return render_template("blog.html")
 
 
 @app.route('/add_product', methods=['GET', 'POST'])
@@ -76,3 +64,37 @@ def product_detail(product_id):
     product = Product.query.get(product_id)
     print(product)
     return render_template('product_detail.html', product=product)
+
+
+@app.route("/blog")
+def blog():
+    posts = Post.query.all()
+    return render_template("blog.html", posts=posts)
+
+
+@app.route('/new_post', methods=['POST', 'GET'])
+def new_post():
+    form = PostForm()
+
+    if form.validate_on_submit():
+        image = request.filse.get('image')
+        if image:
+            file_name =image.filename
+            image.save('gop_shop/static/img/blog/' + file_name)
+            post = Post(titile=form.title.date,content=form.content.date, author=current_user, image=file_name)
+            db.session.add(post)
+            db.session.commit()
+            flash('Пост был создан!', 'saccess')
+            return redirect(url_for('blog'))
+    return render_template('new_post.html', form=form)
+
+
+@app.route('/blog/<int:post_id>')
+def post_detail(post_id):
+    post = Post.query.get(post_id)
+    return render_template('product_detail.html', post=post)
+
+
+@app.route("/base")
+def base():
+     return render_template('base.html')
