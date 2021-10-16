@@ -30,6 +30,7 @@ class User(db.Model, UserMixin):
     isAdmin = db.Column(db.Boolean, default=False)
     posts = db.relationship('Post', backref='author', lazy=True)
 
+
     def __repr__(self) -> str:
         return self.email
 
@@ -42,6 +43,7 @@ class Post(db.Model):
     data_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
     image = db.Column(db.String(), nullable=False)
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'), nullable=False)
+    
 
     def __repr__(self) -> str:
         return self.title

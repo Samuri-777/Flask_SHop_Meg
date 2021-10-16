@@ -11,6 +11,11 @@ def index():
     return render_template('index.html', products=products)
 
 
+@app.route("/base")
+def base():
+     return render_template('base.html')
+
+
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
     if request.method == "POST":
@@ -69,7 +74,7 @@ def product_detail(product_id):
 @app.route("/blog")
 def blog():
     posts = Post.query.all()
-    return render_template("blog.html", posts=posts)
+    return render_template('blog.html', posts=posts)
 
 
 @app.route('/new_post', methods=['POST', 'GET'])
@@ -81,7 +86,7 @@ def new_post():
         if image:
             file_name =image.filename
             image.save('gop_shop/static/img/blog/' + file_name)
-            post = Post(titile=form.title.date,content=form.content.date, author=current_user, image=file_name)
+            post = Post(titile=form.title.data,content=form.content.data, author=current_user, image=file_name)
             db.session.add(post)
             db.session.commit()
             flash('Пост был создан!', 'saccess')
@@ -93,8 +98,5 @@ def new_post():
 def post_detail(post_id):
     post = Post.query.get(post_id)
     return render_template('product_detail.html', post=post)
+    
 
-
-@app.route("/base")
-def base():
-     return render_template('base.html')

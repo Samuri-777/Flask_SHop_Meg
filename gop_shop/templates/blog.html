@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <!--================Blog Area =================-->
-  <section class="blog_area">
+<!--================Blog Area =================-->
+<section class="blog_area">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <div class="blog_left_sidebar">
-                    {% for post in posts %}>
+                    {% for post in posts %}
                     <article class="row blog_item">
                         <div class="col-md-3">
                             <div class="blog_info text-right">
@@ -18,7 +18,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">{{ post.date_posted }}
+                                        <a href="#">{{ post.data_posted }}
                                             <i class="lnr lnr-calendar-full"></i>
                                         </a>
                                     </li>
@@ -34,51 +34,17 @@
                             <div class="blog_post">
                                 <img src="{{ url_for('static', filename='img/blog/main-blog/m-blog-1.jpg') }}" alt="">
                                 <div class="blog_details">
-                                    <a href="single-blog.html">
+                                    <a href="single-product.html">
                                         <h2>{{ post.title }}</h2>
                                     </a>
                                     <p>{{ post.content[:300] }}...</p>
-                                    <a class="button button-blog" href="{{ url_for(post_detail, post_id=post.id) }}">View More</a>
+                                    <a class="button button-blog"
+                                        href="{{ url_for('post_detail', post_id=post.id) }}">View More</a>
                                 </div>
                             </div>
                         </div>
                     </article>
                     {% endfor %}
-                    <article class="row blog_item">
-                        <div class="col-md-3">
-                            <div class="blog_info text-right">
-                                <ul class="blog_meta list">
-                                    <li>
-                                        <a href="#">{{ post.author }}
-                                            <i class="lnr lnr-user"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">{{ post.date_posted }}
-                                            <i class="lnr lnr-calendar-full"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">06 Comments
-                                            <i class="lnr lnr-bubble"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="blog_post">
-                                <img src="{{ url_for('static', filename='img/blog/main-blog/m-blog-4.jpg') }}" alt="">
-                                <div class="blog_details">
-                                    <a href="single-blog.html">
-                                        <h2>{{ post.title }}</h2>
-                                    </a>
-                                    <p>{{ post.content[:300] }}...</p>
-                                    <a href="single-blog.html" class="{{ url_for(post_detail, post_id=post.id) }}">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
                             <li class="page-item">
@@ -242,6 +208,3 @@
     </div>
 </section> -->
 <!--================Blog Area ================= -->
-
-
-  
