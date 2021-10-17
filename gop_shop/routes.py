@@ -73,20 +73,21 @@ def product_detail(product_id):
 
 @app.route("/blog")
 def blog():
-    posts = Post.query.all()
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.data_posted.desc()).paginate(page=page,  per_page=2)
     return render_template('blog.html', posts=posts)
 
 
 @app.route('/new_post', methods=['POST', 'GET'])
 def new_post():
     form = PostForm()
-
     if form.validate_on_submit():
         image = request.filse.get('image')
         if image:
             file_name =image.filename
             image.save('gop_shop/static/img/blog/' + file_name)
-            post = Post(titile=form.title.data,content=form.content.data, author=current_user, image=file_name)
+            post = Post(title=form.title.data,
+                        content=form.content.data, author=current_user, image=file_name)
             db.session.add(post)
             db.session.commit()
             flash('Пост был создан!', 'saccess')
@@ -97,6 +98,6 @@ def new_post():
 @app.route('/blog/<int:post_id>')
 def post_detail(post_id):
     post = Post.query.get(post_id)
-    return render_template('product_detail.html', post=post)
+    return render_template('post_detail.html', post=post)
     
 

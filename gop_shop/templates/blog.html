@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+
+
 <!--================Blog Area =================-->
 <section class="blog_area">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <div class="blog_left_sidebar">
-                    {% for post in posts %}
+                    {% for post in posts.items %}
                     <article class="row blog_item">
                         <div class="col-md-3">
                             <div class="blog_info text-right">
@@ -32,18 +35,29 @@
                         </div>
                         <div class="col-md-9">
                             <div class="blog_post">
-                                <img src="{{ url_for('static', filename='img/blog/main-blog/m-blog-1.jpg') }}" alt="">
+                                <img src="{{ url_for('static', filename='img/blog/' + post.image) }}" alt="">
                                 <div class="blog_details">
-                                    <a href="single-product.html">
+                                    <a href="single-blog.html">
                                         <h2>{{ post.title }}</h2>
                                     </a>
-                                    <p>{{ post.content[:300] }}...</p>
-                                    <a class="button button-blog"
-                                        href="{{ url_for('post_detail', post_id=post.id) }}">View More</a>
+                                    <p>{{ post.content [300] }}...</p>
+                                    <a class="button button-blog" href="{{  url_for('post_detail, post_id=post.id) }}">View More</a>
                                 </div>
                             </div>
                         </div>
                     </article>
+                    {% endfor %}
+
+                    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                        {% if page_num %}
+                            {% if page_num == posts.page %}
+                                <a href="{{ url_for('blog', page=page_num) }}">{{page_num}}</a>
+                            {% else %}
+                                <a href="{{ url_for('blog', page=page_num) }}">{{page_num}}</a>
+                            {% endif %}
+                        {% else %}
+                            ...
+                        {% endif %}
                     {% endfor %}
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
@@ -85,126 +99,6 @@
 </section>
 <!--================Blog Area =================-->
 
+
+
 {% endblock %}
-
-
-
-
-
-
-
-
-
-<!-- ================Blog Area =================-->
-<!-- <section class="blog_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="blog_left_sidebar">
-                    {% for post in posts %}>
-                        <div class="col-md-3">
-                            <div class="blog_info text-right">
-                                <ul class="blog_meta list">
-                                    <li>
-                                        <a href="#">{{ post.author }}
-                                            <i class="lnr lnr-user"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">{{ post.date_posted }}
-                                            <i class="lnr lnr-calendar-full"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">06 Comments
-                                            <i class="lnr lnr-bubble"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="blog_post">
-                                <img src="{{ url_for('static', filename='img/blog/main-blog/m-blog-1.jpg') }}" alt="">
-                                <div class="blog_details">
-                                    <a href="single-blog.html">
-                                        <h2>{{ post.title }}</h2>
-                                    </a>
-                                    <p>{{ post.content[:300] }}...</p>
-                                    <a class="button button-blog" href="{{ url_for('post_detail', post_id=post.id) }}">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="blog_info text-right">
-                                <ul class="blog_meta list">
-                                    <li>
-                                        <a href="#">Mark wiens
-                                            <i class="lnr lnr-user"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">12 Dec, 2017
-                                            <i class="lnr lnr-calendar-full"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">06 Comments
-                                            <i class="lnr lnr-bubble"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="blog_post">
-                                <img src="{{ url_for('static', filename='img/blog/main-blog/m-blog-4.jpg') }}" alt="">
-                                <div class="blog_details">
-                                    <a href="single-blog.html">
-                                        <h2>The Night Sky</h2>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                        </div>
-                    {% endfor %}
-                    <nav class="blog-pagination justify-content-center d-flex">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">
-                                        <span class="lnr lnr-chevron-left"></span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">01</a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="#" class="page-link">02</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">03</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">04</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">09</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">
-                                        <span class="lnr lnr-chevron-right"></span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
-<!--================Blog Area ================= -->
