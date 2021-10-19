@@ -1,3 +1,4 @@
+from flask_login.utils import login_required
 from gop_shop import app
 from flask import render_template, request, redirect, url_for,flash
 from gop_shop.models import Product, db, User,Post
@@ -74,15 +75,16 @@ def product_detail(product_id):
 @app.route("/blog")
 def blog():
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.data_posted.desc()).paginate(page=page,  per_page=2)
+    posts = Post.query.order_by(Post.data_posted.desc()).paginate(page=page,  per_page=1)
     return render_template('blog.html', posts=posts)
 
 
 @app.route('/new_post', methods=['POST', 'GET'])
+@login_required
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        image = request.filse.get('image')
+        image = request.files.get('image')
         if image:
             file_name =image.filename
             image.save('gop_shop/static/img/blog/' + file_name)
