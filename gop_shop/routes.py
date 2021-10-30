@@ -1,7 +1,7 @@
 from flask_login.utils import login_required
 from gop_shop import app
 from flask import render_template, request, redirect, url_for,flash
-from gop_shop.models import Product, db, User, Post, Comment
+from gop_shop.models import Product, db, User, Post, Comment, Buy
 from PIL import Image
 from flask_login import login_user, logout_user, current_user
 from gop_shop.forms import RegistrationForm, PostForm
@@ -101,13 +101,28 @@ def new_post():
 @app.route('/blog/<int:post_id>', methods=['GET', 'POST'])
 def post_detail(post_id):
     post = Post.query.get(post_id)
-    comments = Comment.query.order_by(Comment.date_posted.desc()).all()
+    comments = Comment.query.order_by(Comment.data_posted.desc()).all()
     if request.method == 'POST':
-        print(request.form)
-        comment = Comment(name=request.form.get('name'), subject=request.form.get('subject'), email=request.form.get('email'), message=request.form.get('message')
+        comment = Comment(name=request.form.get('name'), subject=request.form.get(
+            'subject'),email=request.form.get('email'), message=request.form.get('message'), post=post)
         db.session.add(comment)
         db.session.commit()
         flash('Комментарий был добавлен!', 'saccess')
     return render_template('post_detail.html', post=post, comments=comments)
     
 
+@app.route('/products/<int:product_id>/buy', methods=['GET', 'POST'])
+def buy(product_id):
+    product = Product.query.get(product_id)
+    if request.method == "POST":
+        f = request.form
+        b = Buy(name=f.get('name'), adress=f.get('adress'), email=f.get('email'), product=product)
+        db.session.add(b)
+        db.session.commit() 
+    return render_template('buy.html')
+
+
+@app.route('/buys')
+def buys():
+    buys = Buy.query.all()
+    return render_template('buys.html', buys=buys)
